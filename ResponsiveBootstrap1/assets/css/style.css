@@ -1,0 +1,46 @@
+body {
+	background-color: #dddddd;
+}
+
+#header {
+	height: 50px;
+	background-color: #ffffff;
+}
+#name {
+  color:  #ffffff;
+  font-family: 'Georgia';
+  text-align: center;
+  vertical-align: bottom;
+  width: 300px;
+  height: 100%;
+  background-color: #4aaaa5;
+  font-size: 20px;
+  margin: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+nav {
+	text-align: right;
+	font-family: 'Georgia';
+	margin-left: auto;
+  margin-right: auto;
+	width: 400px;
+}
+.linkList {
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	list-style-type: none;
+	justify-content: center;
+	color: #606060;
+}
+a {
+	color: #A9A9A9
+}
+.link {
+	border-right: 1px solid #cccccc;
+  padding: 13px;
+}
+.last {
+  padding: 13px;
+}
