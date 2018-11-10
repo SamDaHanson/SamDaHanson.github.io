@@ -21,7 +21,7 @@ header {
 	display: flex;
 	margin-left: auto;
 	margin-right: auto;
-	width: 960px;
+	width: 100%;
 	height: 100%;
 	align-items: center;
 }
@@ -79,6 +79,7 @@ nav {
 
 .indexContent {
 	padding: 2.5%;
+	width: 90%;
 }
 
 #indexInfo {
@@ -140,7 +141,9 @@ h3 {
 a {
 	color: #A9A9A9
 }
-
+#secondText {
+	display: none;
+}
 .footer {
 	position: sticky;
 	width: 100%;
@@ -150,4 +153,22 @@ a {
 	color: #ffffff;
 	vertical-align: text-bottom;
 	bottom: 0px;
+}
+@media only screen and (max-width: 1000px) {
+	.pageBackground {
+		flex-grow: 1;
+		position: relative;
+		margin-top: 2.5%;
+		margin-bottom: 2.5%;
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: #ffffff;
+	}
+	#sideText {
+		display:none;
+	}
+	#secondText {
+		display: block;
+	}
 }
