@@ -1,46 +1,57 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Index</title>
+		<title>Contact</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="assets/css/style.css">
 	</head>
 	<body>
-		<div class = "fullPage">
-
-			<header>
-			  <div class = "headDetails">
-			    <div class = "name">
-			      <h1>Sam Hanson</h1>
-			    </div>
-			    <nav>
-			      <ul class = "linkList">
-			        <li class = "link"><a href="index.html">About</a></li>
-			        <li class = "link"><a href="portfolio.html">Portfolio</a></li>
-			        <li class = "last"><a href="contact.html">Contact</a></li>
-			      </ul>
-			    </nav>
-			  </div>
-			</header>
-
-			<div class = "pageBackground">
-				<div class = "indexContent">
-					<h2>Contact</h2>
-					<hr>
-					<h3>Name</h3>
-					<input type="text" name="name">
-					<h3>Email</h3>
-					<input type="text" name="email">
-					<h3>Message</h3>
-					<input id="message" type="text" name="message">
+		<div class="container-fluid" style="padding:0;">
+			<nav class="navbar justify-content-around" style="background-color: white; padding:0;">
+				<div class="nav-item" id="name">
+						<h1>Sam Hanson</h1>
+				</div>
+				<div class="nav-item">
+					<ul class="linkList">
+						<li class = "last"><a href="index.html">About</a></li>
+						<li class = "link"><a href="portfolio.html">Portfolio</a></li>
+						<li class = "link"><a href="contact.html">Contact</a></li>
+					</ul>
+				</div>
+			</nav>
+			<br>
+			<div class="row justify-content-center">
+				<div class="col-md-8" style="padding:0;">
+					<div class="card" style="padding:0;">
+						<br>
+						<h2 style="text-align: center; color: #4aaaa5;">Contact</h2>
+						<hr>
+						<div style="display: flex; flex-direction: column; width:30%; margin: auto; align-items:center;">
+							<h5>Name</h5>
+							<input type="text" name="name">
+							<br>
+							<br>
+							<h5>Email</h5>
+							<input type="text" name="email">
+							<br>
+							<br>
+							<h5>Message</h5>
+							<input type="text" name="message">
+							<br>
+							<br>
+							<input type="submit" value="Submit">
+							<br>
+							<br>
+						</div>
+					</div>
 					<br>
-					<input id="submit" type="submit" value="Submit">
+					<br>
+					<br>
 				</div>
 			</div>
-			
-			<div class = "footer">
-				<p>Copyright</p>
-			</div>
-
+		</div>
+		<div class="navbar fixed-bottom bg-light justify-content-center" style="padding:0;">
+			<p>Copyright</p>
 		</div>
 	</body>
 </html>
