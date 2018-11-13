@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LeagueSide</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+      #map {
+        height: 400px;
+        width: 100%;
+      }
+      #info {
+        display: flex;
+        flex-direction: row;
+      }
+      #chosen {
+        width: 50%;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 align="center">League Side - League Finder</h1>
+      <br />
+      <div style="display: flex; flex-direction:row; justify-content: center;">
+        <div align="center">
+          <button type="button" name="load_data" id="load_data" class="btn btn-info">View Data Table</button>
+        </div>
+        <div align="center">
+          <button style="display:none;" type="button" name="hide_data" id="hide_data" class="btn btn-info">Hide Data Table</button>
+        </div>
+        <div style="width:10%;">
+        </div>
+        <div align="center">
+          <button type="button" name="download_data" id="download_data" class="btn btn-info">Download Data as Csv</button>
+        </div>
+      </div>
+      <br />
+      <div class="table-responsive">
+        <div id="league_table">
+        </div>
+      </div>
+      <h3 align="center">Location of Leagues</h3>
+      <h4 align="center">Move/Scale the circle to change cost analysis area!</h4>
+      <div style="display: flex; flex-direction: row; justify-content: space-around; height: 100px;">
+
+        <div>
+          <div style="font-weight: bold;">
+            Search Location:
+          </div>
+          <div style="text-align: right;" id="locationHtml">
+            No Location
+          </div>
+        </div>
+        <div>
+          <div style="font-weight: bold;">
+            Radius:
+          </div>
+          <div style="text-align: right;" id="radiusHtml">
+            No Radius
+          </div>
+        </div>
+      </div>
+      <div id="info">
+        <div style="width: 100%;display:flex; flex-direction: column;">
+          <h5 align="center">Click the map to add a new league!</h5>
+          <div id="map"></div>
+        </div>
+        <div style="width:10%;">
+        </div>
+        <div id="chosen">
+          <div>
+            Budget:
+            <input id="budget" onchange="determineLeagues()" type="number" value=0>
+          </div>
+          <h3>Chosen teams</h3>
+          <div class="table-responsive">
+            <div id="chosen_table">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  var tabbyData = "";
+
+  $(document).ready(function(){
+    $('#hide_data').click(function(){
+      $('#load_data').css( "display", "block" );
+      $('#hide_data').css( "display", "none" );
+      $('#league_table').css( "display", "none" );
+    });
+    $('#load_data').click(function(){
+      makeTable();
+    });
+    $('#download_data').click(function(){
+      downloadCsv();
+    });
+  });
+
+  function downloadCsv() {
+    var csvData = "";
+    tabbyData.forEach(function(row, rIndex) {
+      if (rIndex == 0) {
+        csvData = row;
+      } else {
+        csvData = csvData + "\n"+row;
+      }
+    });
+    var blob = new Blob([csvData]);
+    if (window.navigator.msSaveOrOpenBlob) {  // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx
+      window.navigator.msSaveBlob(blob, "data2.csv");
+    } else {
+      var loc = window.location.pathname;
+      var a = window.document.createElement("a");
+      a.href = window.URL.createObjectURL(blob);
+      a.download = "data.csv";
+      document.body.appendChild(a);
+      a.click();  // IE: "Access is denied"; see: https://connect.microsoft.com/IE/feedback/details/797361/ie-10-treats-blob-url-as-cross-origin-and-denies-access
+      document.body.removeChild(a);
+    }
+  }
+
+  function addDataToCsv(name,cost,latitude,longitude) {
+    var newCsvRow = name+","+cost+","+latitude+","+longitude;
+
+    tabbyData[tabbyData.length] = newCsvRow;
+    makeTable();
+  }
+
+  function makeTable() {
+    var data = tabbyData;
+    $('#load_data').css( "display", "none" );
+    $('#hide_data').css( "display", "block" );
+    $('#league_table').css( "display", "block" );
+    var tableHtml = '<table class="table table-bordered table-striped">';
+    for(var count = 0; count<data.length; count++) {
+      var cells = data[count].split(",");
+      tableHtml += '<tr>';
+      for(var cellIndex=0; cellIndex<cells.length; cellIndex++) {
+        if(count === 0) {
+          tableHtml += '<th>'+cells[cellIndex]+'</th>';
+        } else {
+          tableHtml += '<td>'+cells[cellIndex]+'</td>';
+        }
+      }
+      tableHtml += '</tr>';
+    }
+    tableHtml += '</table>';
+    $('#league_table').html(tableHtml);
+  }
+
+  // Initialize and add the map
+  function initMap() {
+    $.ajax({
+      url:"data.csv",
+      dataType:"text",
+      success:function(data) {
+        var leagueData = data.split(/\r?\n|\r/);
+        leagueData.pop(leagueData.length-1);
+        tabbyData=leagueData;
+
+        // Center of the map view & load it
+        var center = {lat: 39.962802, lng: -75.145935};
+        var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 14, center: center});
+
+        // Clean up the mess
+        var noLabelStyle = [
+          {
+            featureType: "all",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          }
+        ];
+        map.set('styles', noLabelStyle);
+
+        // Add each league to the map
+        leagueData.forEach(function(row, rIndex) {
+          if (rIndex != 0) {
+            var cells = row.split(',');
+            var location = {lat: parseFloat(cells[2]), lng: parseFloat(cells[3])};
+            var toolTip = cells[0]+" ("+cells[1]+"$)";
+            var marker = new google.maps.Marker({position: location, map: map, title: toolTip});
+          }
+        });
+
+        // Add circle of cost calculation
+        var costCircle = new google.maps.Circle({
+          strokeColor: '#1b68e5',//'#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#1be5d7',
+          fillOpacity: 0.35,
+          map: map,
+          center: center,
+          radius: 1200,
+          editable: true,
+          clickable: false
+        });
+
+        var niceLoc = costCircle.getCenter();
+        var goodLoc = niceLoc.lat().toFixed(6)+", "+niceLoc.lng().toFixed(6);
+        $('#locationHtml').html(goodLoc);
+        $('#radiusHtml').html(Number(costCircle.getRadius()));
+
+        google.maps.event.addListener(costCircle, 'radius_changed', function() {
+          $('#radiusHtml').html(Number(costCircle.getRadius()));
+          determineLeagues();
+        });
+        google.maps.event.addListener(costCircle, 'center_changed', function() {
+          var niceLoc = costCircle.getCenter();
+          var goodLoc = niceLoc.lat().toFixed(6)+", "+niceLoc.lng().toFixed(6);
+          $('#locationHtml').html(goodLoc);
+          determineLeagues();
+        });
+
+        google.maps.event.addListener(map, 'click', function(e) {
+          var name = prompt("What is the name of the league?");
+          var cost = Number(prompt("What is the cost of the league?"));
+          var latitude = e.latLng.lat().toFixed(6);
+          var longitude = e.latLng.lng().toFixed(6);
+          addDataToCsv(name,cost,latitude,longitude);
+          determineLeagues();
+
+          var toolTip = name+" ("+cost+"$)";
+          var marker = new google.maps.Marker({position: e.latLng, map: map, title: toolTip});
+        });
+      }
+    });
+  }
+
+  function determineLeagues() {
+    allLeagues = tabbyData;
+    var budget = parseFloat(document.getElementById("budget").value);
+    var radius = Number($('#radiusHtml').html());
+    var latLong = $('#locationHtml').html().split(',');
+    var center = new google.maps.LatLng(latLong[0], latLong[1]);
+
+    // Get all teams in the desired area
+    var closeTeams = [];
+    var cIndex = 0;
+    allLeagues.forEach(function(row, rIndex) {
+      if (rIndex != 0 && rIndex != allLeagues.length) {
+        var cells = row.split(',');
+        var leaguePos = new google.maps.LatLng(cells[2], cells[3]);
+        var distance = google.maps.geometry.spherical.computeDistanceBetween(leaguePos, center);
+        if (distance <= radius) {
+          closeTeams[cIndex] = cells;
+          cIndex++;
+        }
+      }
+    });
+
+    // Sort by cost - low to high
+    for (var i = 0; i < closeTeams.length-1; i++) {
+      if(Number(closeTeams[i+1][1]) < Number(closeTeams[i][1])) {
+        var temp = closeTeams[i];
+        closeTeams[i] = closeTeams[i+1];
+        closeTeams[i+1] = temp;
+        i = i - 2;
+        if (i < -1)
+          i = -1;
+      }
+    }
+
+    // Select teams using budget from low to high
+    var selectedTeams = [];
+    var tIndex = 0;
+    while (budget > 0 && tIndex < closeTeams.length) {
+      if (budget >= closeTeams[tIndex][1]) {
+        selectedTeams[tIndex] = closeTeams[tIndex];
+        budget -= parseFloat(closeTeams[tIndex][1]);
+        tIndex++;
+      } else {
+        break;
+      }
+    }
+
+    // Write table
+    if (selectedTeams.length) {
+      var header = ["League","Cost","Latitude","Longitude"];
+      var tableHtml = '<table class="table table-bordered table-striped">';
+      tableHtml += '<tr>';
+      for (var i = 0; i < header.length; i++) {
+        tableHtml += '<th>'+header[i]+'</th>';
+      }
+      tableHtml += '</tr>';
+
+      for(var count = 0; count<selectedTeams.length; count++) {
+        tableHtml += '<tr>';
+        var cells = selectedTeams[count];
+        for(var cellIndex=0; cellIndex<cells.length; cellIndex++) {
+          tableHtml += '<td>'+cells[cellIndex]+'</td>';
+        }
+        tableHtml += '</tr>';
+      }
+      tableHtml += '</table>';
+      $('#chosen_table').html(tableHtml);
+    } else {
+      $('#chosen_table').html("No teams can be funded with the current budget & search area!");
+    }
+  }
+</script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUBj-8cD__ENvgYc0vOl1NzTCevZw-sdU&callback=initMap">
+</script>
