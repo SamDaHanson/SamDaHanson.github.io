@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Index</title>
+		<link rel="stylesheet" href="assets/css/style.css">
+	</head>
+	<body onload="startGame()">
+		<script type="text/javascript" src="assets/javascript/game.js"></script>
+		<img style="width:100%" src="https://stmed.net/sites/default/files/overwatch-hd-wallpapers-33472-6531220.jpg" alt="Italian Trulli">
+		<div id="game">
+			<div style="display: flex; justify-content: center;">
+				<h3 style="margin-right: 10px;">Key Hit:</h3>
+				<h3 id="keyHit">_</h3>
+			</div>
+			<div style="display: flex; justify-content: center;">
+				<h3 style="margin-right: 10px;">Guesses Remaining:</h3>
+				<h3 id="guessRemain">_</h3>
+			</div>
+			<div style="display: flex; justify-content: center;">
+				<h3 style="margin-right: 10px;">Word to Guess:</h3>
+				<h3 id="guessDiv">_</h3>
+			</div>
+			<div style="display: flex; justify-content: center;">
+				<h3 style="margin-right: 10px;">Letters Guessed Already:</h3>
+				<h3 id="lettersUsed">_</h3>
+			</div>
+		</div>
+		<div id="winScreen" style="display:none">
+			<h1 align:center>You Won!</h1>
+		</div>
+		<div id="loseScreen" style="display:none">
+			<h1 align:center>You Lose!</h1>
+		</div>
+	</body>
+</html>
