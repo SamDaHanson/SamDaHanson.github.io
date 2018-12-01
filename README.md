@@ -14,5 +14,5 @@ Types:
   
   https://samdahanson.github.io/word-guess-game
   
-  https://samdahanson.github.io/CrystalGame
+  https://samdahanson.github.io/Game
   
