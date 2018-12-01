@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./assets/javascript/game.js"></script>
+  </head>
+  <body>
+    <div id="background" class="container-fluid">
+      <br>
+      <div align="center" class="row justify-content-center">
+        <div class="col-sm-4">
+          <h1 id="title">Crystal Collector!</h1>
+        </div>
+      </div>
+      <div align="center" class="row justify-content-center">
+        <div class="col-sm-8">
+          <div id="infoBackground">
+            <div id="info">
+              <br>
+              <h3>How to play:</h3>
+              <p>Given a random number.</p>
+              <p>Your goal is to click on the crystals (which all contain a different values)</p>
+              <p>Keep clicking the crystals until your score gets close to the random number.</p>
+              <p>If you align your number with the random number then you win!</p>
+              <p>If you go over the score, you lose.</p>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div style="height: 100px" align="center" class="row justify-content-center">
+        <div class="col-sm-6">
+          <div id="randNum">
+            <h2>Random Number:</h2>
+            <div id="rand">
+              0
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div id="winsLosses">
+            Wins: <div id="wins">0</div>
+            Losses: <div id="losses">0</div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div style="height: 150px" align="center" class="row justify-content-center">
+        <img id="gem1" class="img" src="https://vignette.wikia.nocookie.net/crashban/images/b/ba/Crash_Nitro_Kart_Green_Gem.png/revision/latest?cb=20170520002854">
+        <img id="gem2" class="img" src="https://img.itch.zone/aW1hZ2UvNzU0MzgvMzQ5NTY3LnBuZw==/original/j4T9IH.png">
+        <img id="gem3" class="img" src="https://pbs.twimg.com/profile_images/531994916181012480/EBap51cO.png">
+        <img id="gem4" class="img" src="http://stemgemsbook.com/wp-content/uploads/2016/03/pink-gem.png">
+      </div>
+      <br>
+      <div style="display: flex; height: 45px" align="center" class="row justify-content-center">
+        <div class="scoreBox col-sm-3">
+          <h2>Score:</h2>
+        </div>
+
+        <div class="scoreBox col-sm-3">
+          <h2 id="score">0</h2>
+        </div>
+      </div>
+      <br>
+      <br>
+      <br>
+    </div>
+  </body>
+</html>
