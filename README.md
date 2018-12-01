@@ -12,3 +12,7 @@ Types:
 
   https://samdahanson.github.io/LeagueSideWeb
   
+  https://samdahanson.github.io/word-guess-game
+  
+  https://samdahanson.github.io/CrystalGame
+  
