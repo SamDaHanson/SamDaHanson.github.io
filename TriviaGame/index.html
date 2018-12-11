@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+  <script src="assets/javascript/quiz.js"></script>
+  <div style="padding: 0; margin-top: 40px" class="container">
+    <div align="center" class="row">
+      <div id="title" class="col-sm">
+        <h1>Trivia Game</h1>
+      </div>
+    </div>
+    <br>
+    <div align="center" id="timer">
+    </div>
+    <br>
+    <div id="questionArea">
+      <div align="center" id="question">
+        <h2>Question??</h2>
+      </div>
+      <form id="inputs">
+        <div align="center" class="form-row">
+          <div class="col option">
+            <h3 id="o1">Option1:</h3>
+            <div class="form-check">
+              <input id="c1" class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+            </div>
+          </div>
+          <div class="col option">
+            <h3 id="o2">Option2: </h3>
+            <div class="form-check">
+              <input id="c2" class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+            </div>
+          </div>
+        </div>
+        <br>
+        <div align="center" class="form-row">
+          <div class="col option">
+            <h3 id="o3">Option3:</h3>
+            <div class="form-check">
+              <input id="c3" class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+            </div>
+          </div>
+          <div class="col option">
+            <h3 id="o4">Option4: </h3>
+            <div class="form-check">
+              <input id="c4" class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+            </div>
+          </div>
+        </div>
+        <br>
+        <div align="center" class="form-row">
+          <div class="col-sm">
+            <button id="submit" type="button" class="btn btn-info">Submit</button>
+          </div>
+        </div>
+      </form>
+      <div align="center" id="results">
+        <br>
+        <h4>Questions Left: </h4><div id="qLeft">0</div><br>
+        <h4>Correct Answers: </h4><div id="corAns">0</div><br>
+        <h4>Wrong Answers: </h4><div id="wrgAns">0</div><br>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
