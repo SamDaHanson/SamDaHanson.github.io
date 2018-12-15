@@ -1,0 +1,63 @@
+#header {
+  background-color: lightblue;
+  color: black;
+  text-align: center;
+}
+.row {
+  width: 100%;
+}
+p {
+  margin: 0;
+}
+.animalButton {
+  width: 100px;
+  height: 50px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-color: lightblue;
+  border-color: darkblue;
+}
+#pictures {
+  border-style: solid;
+  border-width: 2px;
+  border-color: lightgray;
+  padding: 0;
+}
+.contentBox {
+  height: 200px;
+  width: 200px;
+  text-align: center;
+  display: inline-block;
+}
+.pic {
+  width: 100%;
+  padding: 10px;
+  padding-top: 0;
+}
+#pictureHeader {
+  background-color: lightgray;
+  padding: 10px;
+}
+#addAnimal {
+  border-style: solid;
+  border-width: 2px;
+  border-color: lightgray;
+  padding: 0;
+}
+#animalHeader {
+  background-color: lightgray;
+  padding: 10px;
+}
+#form {
+  padding: 10px;
+}
+#input {
+  /* margin-left: 10%; */
+  width: 50%;
+  margin: auto;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+#submit {
+  margin: auto;
+}
