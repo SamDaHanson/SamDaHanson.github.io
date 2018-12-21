@@ -1,0 +1,31 @@
+#titleBox {
+  height: 200px;
+  background-color: lightblue;
+  text-align: center;
+}
+#title {
+  padding: 40px;
+}
+#trainTable {
+  width: 100%;
+  border-width: 2px;
+  border-style: solid;
+  border-color: darkblue;
+}
+.rowy {
+  border-bottom: 1px solid gray;
+}
+#formTitle {
+  background-color: lightblue;
+  height: 60px;
+}
+.inField {
+  margin-left: 20px;
+  padding: 10px;
+}
+.formLabel {
+  font-weight: bold;
+}
+.formInput {
+  margin-top: 5px;
+}
