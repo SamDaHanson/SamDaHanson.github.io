@@ -12,6 +12,8 @@ Types:
 
   https://samdahanson.github.io/LeagueSideWeb
   
+  https://samdahanson.github.io/Project1.2
+  
   https://samdahanson.github.io/word-guess-game
   
   https://samdahanson.github.io/Game
