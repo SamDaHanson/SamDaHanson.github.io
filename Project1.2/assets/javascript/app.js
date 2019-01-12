@@ -1,9 +1,29 @@
-$(document).ready(function () {
+ // Initialize Firebase
+ var config = {
+    apiKey: "AIzaSyCNKS3caHsAr6BuWFA9Scrj6KNBGzTnOOc",
+    authDomain: "sam-andrew-troy.firebaseapp.com",
+    databaseURL: "https://sam-andrew-troy.firebaseio.com",
+    projectId: "sam-andrew-troy",
+    storageBucket: "",
+    messagingSenderId: "849715174313"
+  };
+  firebase.initializeApp(config);
 
+//Create Firebase Refs
+var database = firebase.database();
+var artistsRef = database.ref().child('Artists');
+$("#tracksTitle").hide();
+
+$(document).ready(function () {
+    
+    //Initial buttons upon first load
     var topics = ["Usher", "Foo Fighters", "Green Day", "Black Sabbath", "Kanye", "Cage The Elephant", "Will Smith", "Beyonce"];
 
+
+    //AJAX CALL #1: MUSIXMATCH API
     function getLyrics(artist) {
-      var artistSearch = artist;
+        $("#tracksTitle").show();
+    var artistSearch = artist;
       document.getElementById("lyrics").textContent = "";
       $.ajax({
         type: "GET",
@@ -23,7 +43,7 @@ $(document).ready(function () {
             var thisTrack = randomTracks[i].track.track_name;
 
             var p = document.createElement("p");
-            p.textContent = thisTrack;
+            p.textContent = `"${thisTrack}"`;
             p.id = thisTrack;
 
             document.getElementById("lyrics").appendChild(p).style.opacity = 1;
@@ -45,8 +65,11 @@ $(document).ready(function () {
       });
     }
 
+    //AJAX CALL #2: GIPHY API
     function displaySpaceStuff() {
         var space = $(this).attr("data-name");
+        $("#artistName").text(`${space}'s`);
+        // console.log(space);
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + space + "&api_key=mePpseQoZWWEY5RregXq0iDwpYlq2U9J&limit=10";
         getLyrics(space);
         $.ajax({
@@ -54,17 +77,17 @@ $(document).ready(function () {
             method: "GET"
         }).done(function (response) {
             $("#space-value").empty();
-
+            console.log(response.data);
             for (var i = 0; i < response.data.length; i++) {
                 var space = $("<div class='spaceGif'>");
                 var rating = response.data[i].rating;
                 var picRating = $("<p>").text("Rating: " + rating);
                 var picStill = response.data[i].images.fixed_height_still.url;
                 var picAnimate = response.data[i].images.fixed_height.url;
-                var image = $("<img>").addClass("image").attr("src", picStill).attr("data-still", picStill).attr("data-animate", picAnimate).attr("data-state", "still");
+                var image = $("<img>").addClass("image").attr("src", picAnimate).attr("data-still", picStill).attr("data-animate", picAnimate).attr("data-state", "still");
 
                 space.append(image);
-                space.append(picRating);
+                // space.append(picRating);
 
                 if (rating === 'pg' || rating === 'g') {
                     space.append(image);
@@ -83,6 +106,40 @@ $(document).ready(function () {
                     $(this).attr("data-state", "still");
                 }
             });
+
+            //AUTO-SCROLL GIF FUNCTIONALITY
+            if ($('#space-value').height() > ($("#backgroundcolor1").height() - 30)) {
+                setInterval(function () {
+                start();
+            }, 500); 
+        
+            }
+
+            function animateContent(direction) {  
+            var animationOffset = $('#backgroundcolor1').height() - $('#space-value').height()-30;
+            if (direction == 'up') {
+                animationOffset = 0;
+            }
+        
+            $('#space-value').animate({ "marginTop": (animationOffset)+ "px" }, 25000);
+            }
+        
+            function up(){
+                animateContent("up")
+            }
+            function down(){
+                animateContent("down")
+            }
+        
+            function start(){
+                setTimeout(function () {
+                down();
+            }, 1000);
+                setTimeout(function () {
+                up();
+            }, 1000);
+            }    
+        
         });
     }
 
@@ -91,6 +148,7 @@ $(document).ready(function () {
         for (var i = 0; i < topics.length; i++) {
             var z = $("<button>");
             z.addClass("spaceClass");
+            z.addClass("hvr-pulse-shrink");
             z.attr("data-name", topics[i]);
             z.text(topics[i]);
             $("#myButtons").append(z);
@@ -98,12 +156,22 @@ $(document).ready(function () {
     }
 
     $("#spaceTheme").on("click", function (event) {
+        
         event.preventDefault();
         var space = $("#space-input").val().trim();
-        topics.push(space);
-        $("#space-input").val(" ");
-        myButtons();
+        var newArtist = {
+            name: space,
+        };
+       
+        artistsRef.push(newArtist);
+
+        if (space != '' && !topics.includes(space)) {
+            topics.push(space);
+            $("#space-input").val(" ");
+            myButtons();
+        }
     });
+
 
     $(document).on("click", ".spaceClass", displaySpaceStuff);
     myButtons();

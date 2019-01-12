@@ -8,15 +8,28 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	 crossorigin="anonymous">
+	
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	
 	<link rel="stylesheet" href="./assets/css/reset.css">
+	
+	<!-- Hover Reference -->
+	<link href="assets/css/hover.css" rel="stylesheet">
+
 	<link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+	
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
-	 crossorigin="anonymous">
+	crossorigin="anonymous">
+	
 	<link href="./assets/css/style.css" rel="stylesheet" type="text/css" />
+	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.1.0/gl-matrix.js"></script>
+	
+	<!-- Firebase Reference -->
+	<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
 
 </head>
+
 
 <body>
 	<canvas id="canvas"></canvas>
@@ -46,14 +59,14 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="col-md-6" id="backgroundcolor" align="center" style="background-color: rgba(0,191,255,0.5); padding: 0; margin: 0">
+		<div class="row" id="content-holder">
+			<div class="col-md-6" id="backgroundcolor1" align="center" style=" padding: 0; margin: 0">
 				<div id="space-value" class="text-center"></div>
 			</div>
-			<div class="col-md-6" id="backgroundcolor" align="center" style="background-color: rgba(0,191,255,0.5); padding: 0; margin: 0">
-				<div id="tracksTitle" class="text-center">
+			<div class="col-md-6" id="backgroundcolor1" align="center" style=" padding: 0; margin: 0">
+				<div id="tracksTitle" class="text-center" >
 					<h3>
-						Top Tracks
+						<span id="artistName"> </span> Notable Tracks:
 					</h3>
 				</div>
 				<div id="lyrics" class="text-center"></div>
@@ -61,19 +74,13 @@
 		</div>
 	</div>
 
+	<!-- "background-color: rgba(0,191,255,0.5)"" -->
+
 	<section id="footer" align="center" style="z-index: 1000">
 
-		<!--
-		OLD FOOTER ICON
-		 <a href="https://lh3.googleusercontent.com/vTUcoLk3asSybttmReBGbmyMt56G2_j3Fx5h7nhN_1pM_uzIhPSs02wC0POuJIIRryHnTWNvugs2264yfUd5=w2464-h1182-rw">
-		<img src="https://lh3.googleusercontent.com/vTUcoLk3asSybttmReBGbmyMt56G2_j3Fx5h7nhN_1pM_uzIhPSs02wC0POuJIIRryHnTWNvugs2264yfUd5=w2464-h1182-rw" style="width: 300px; max-width: 100%; height: auto" title="Click for the larger version." /> -->
-
-		<!--
-		NEW FOOTER ICON
-		<a href="https://lh5.googleusercontent.com/Qrx0AS5cXo6myz-0dU6FPd9xGyxnPPDMLS_JBqR_9EKCOr6SH8OsPMRIK1ve_Re28YBobf7GKcikthYuxndi=w2560-h1236-rw">
-    <img src="https://lh5.googleusercontent.com/Qrx0AS5cXo6myz-0dU6FPd9xGyxnPPDMLS_JBqR_9EKCOr6SH8OsPMRIK1ve_Re28YBobf7GKcikthYuxndi=w2560-h1236-rw"
-    style="width: 300px; max-width: 100%; height: auto"
-    title="Click for the larger version." /> -->
+    	<img src="assets/images/clef-img.png"
+    	style="width: 150px; max-width: 100%; height: auto"
+    	title="Click for the larger version." />
 
 		<h1> Andrew Bagwell - Sam Hanson - Troy Wynn  </h1>
 

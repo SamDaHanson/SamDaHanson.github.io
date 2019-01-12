@@ -9,7 +9,7 @@ canvas {
   background-image: url("https://d3msuhg919on6x.cloudfront.net/media/transfer/img/articleimage/2014-07/concert_crowd.jpg");
   position: absolute;
   width: 100%;
-  height: 100%;
+  max-height: 100%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -90,10 +90,50 @@ p {
   font-family: 'Oswald', sans-serif; 
 }
 
+.spaceClass {
+
+  font-size: 2em;
+
+}
+
 .spaceClass:hover, .spaceClass:focus, .spaceClass:active, .spaceClass.active {
   color: #fff;
   background-color: #C5C6C7;
   border-color: #66FCF1; 
+}
+
+#artistName {
+  /* font-style: italic; */
+  
+}
+
+
+#content-holder {
+  /* background-color: rgba(0,191,255,0.5); */
+  /* position: static; */
+  color: black;
+  max-height: 100%;
+
+}
+
+
+
+#space-value{
+
+  /* max-height: 1000px; */
+ 
+  /* overflow-y: scroll; */
+  /* overflow-y: auto; */
+  overflow: hidden;
+
+}
+
+#backgroundcolor1 {
+  background-color: rgb(0, 191, 255, 0.6);
+  overflow: hidden;
+  max-height: 900px;
+  /* color: black; */
+
 }
 
 
